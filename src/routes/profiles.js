@@ -1,10 +1,11 @@
 const express = require("express");
 const {userAuth} = require("../middleware/auth");
 const cookieParser = require('cookie-parser')
-const {editoptions} = require("../utils/validator")
+const {validateEditProfile} = require("../utils/validator")
 const bcrypt = require('bcrypt');
 const validate = require("validator");
 const User = require("../models/user");
+
 
 const profileRouter = express.Router();
 profileRouter.use(cookieParser())
@@ -31,7 +32,7 @@ profileRouter.get("/profile", userAuth, async (req, res) => {
   
   profileRouter.patch("/profile/edit", userAuth, async(req,res)=>{
     try{
-    if(!editoptions(req)){
+    if(!validateEditProfile(req)){
       throw new Error("these fields not allowed to update")
     };
   const loggedinUser = req.user;

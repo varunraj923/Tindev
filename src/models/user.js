@@ -20,6 +20,16 @@ const userSchema = mongoose.Schema({
    gender: {
     type: String,
    },
+
+   photoUrl : {
+      type : String,
+   },
+
+   about : {
+      type : String,
+   },
+
+   
    
 
 

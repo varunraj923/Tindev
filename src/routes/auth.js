@@ -12,7 +12,7 @@ const {userAuth} = require("../middleware/auth");
 
 const authRouter = express.Router();
 authRouter.use(express.json());
-authRouter.use(cookieParser())
+authRouter.use(cookieParser());
 
 
 
@@ -72,7 +72,7 @@ authRouter.post("/signup", async (req, res) => {
   
       res.cookie("token", token);
   
-      res.send("User Login Sucessful");
+      res.send(user);
   
     }
   

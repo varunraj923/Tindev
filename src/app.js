@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/database.js");
 const User = require("./models/user.js");
+const cors = require("cors");
 
 const bcrypt = require("bcrypt");
 const validator = require("validator");
@@ -9,20 +10,30 @@ const cookieParser = require('cookie-parser')
 
 
 const user = require("./models/user.js");
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profiles");
 const requestRouter = require("./routes/request");
+const userRouter = require("./routes/user");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
+app.use("/", userRouter );
 
 // Connect to the database
 connectDB();
 
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
+
 
 
 
