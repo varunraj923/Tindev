@@ -30,12 +30,24 @@ authRouter.post("/signup", async (req, res) => {
   
       // Create a new user instance
       const user = new User({ firstName, lastName, emailId, password: passwordHash });
-  
+      const savedUser = await user.save();
       // Save the user to the database
-      await user.save();
+      
+
+     
+      const token = jwt.sign({_id : user._id}, "VARUN@123345",{
+        expiresIn : "7d"
+      });
+
+      res.cookie("token", token);
+
+  
+     
+  
+      res.json({ message: "User Added successfully!", data: savedUser });
   
       // Send a success response
-      res.status(201).json({ message: "User added successfully" });
+ 
     } catch (err) {
       // Handle errors
       res.status(400).json({ error: err.message });

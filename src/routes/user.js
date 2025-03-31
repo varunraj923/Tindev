@@ -1,11 +1,13 @@
 const express =  require("express");
 const { userAuth } = require("../middleware/auth");
 const userRouter =  express.Router();
-const USER_SAFE_DATA = "firstName lastName photoUrl age gender about skills";
+
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
 
     //writing the logic for retriving all the pending connection request for the user
+
+    const USER_SAFE_DATA = "firstName lastName photoUrl age gender about skills";
     
 
 userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
@@ -53,7 +55,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       return row.fromUserId;
     });
 
-    res.json({ data });
+    res.json({connectionRequests});
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
