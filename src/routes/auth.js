@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const cookieParser = require('cookie-parser');
 const {userAuth} = require("../middleware/auth");
+require('dotenv').config()
 
 
 
@@ -35,7 +36,7 @@ authRouter.post("/signup", async (req, res) => {
       
 
      
-      const token = jwt.sign({_id : user._id}, "VARUN@123345",{
+      const token = jwt.sign({_id : user._id}, process.env.tokenPassword,{
         expiresIn : "7d"
       });
 
